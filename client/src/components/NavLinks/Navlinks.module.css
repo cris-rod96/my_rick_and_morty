@@ -1,0 +1,25 @@
+.navLinks {
+  display: flex;
+  gap: 40px;
+}
+
+.navLinks > a {
+  font-size: 18px;
+}
+
+.navLinks > a > i {
+  margin-right: 10px;
+}
+
+.navLinks > a:hover {
+  color: rgb(8, 124, 8);
+  text-shadow: 0px 0px 20px green;
+}
+
+.navLinks > a:hover i {
+  color: rgb(163, 160, 160);
+}
+.navLinks > a:last-child:hover i {
+  color: gold;
+  text-shadow: 0px 0px 20px gold;
+}

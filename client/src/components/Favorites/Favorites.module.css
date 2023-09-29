@@ -1,0 +1,52 @@
+.containerFavorites {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.containerFilters {
+  width: 50%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.containerSelect {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.labelSelects {
+  color: rgb(78, 77, 77);
+  font-size: 22px;
+}
+
+.selectFilter {
+  height: 60px;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #2e2e2c;
+  color: rgb(160, 153, 153);
+  border: 2px solid #2e2e2c;
+  border-radius: 12px;
+  box-shadow: 0px 0px 20px #2e2e2c;
+  text-indent: 5px;
+}
+
+.selectFilter:focus {
+  border: 2px solid green;
+  box-shadow: 0px 0px 20px green;
+}
+
+.containerCards {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}

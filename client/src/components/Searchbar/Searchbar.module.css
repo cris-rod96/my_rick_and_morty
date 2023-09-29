@@ -1,0 +1,55 @@
+.searchBar {
+  display: flex;
+  gap: 10px;
+}
+
+.inputSearch {
+  height: 50px;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  font-size: 18px;
+  background-color: rgba(61, 59, 59, 0.4);
+  border: 2px solid rgba(61, 59, 59, 0.4);
+  box-shadow: 0px 0px 20px rgba(61, 59, 59, 0.4);
+  border-radius: 12px;
+  color: white;
+}
+.inputSearch:focus {
+  border: 2px solid green;
+  box-shadow: 0px 0px 20px green;
+}
+
+.btn {
+  width: 50px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: rgba(128, 127, 127, 0.4);
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid rgba(61, 59, 59, 0.4);
+  border-radius: 12px;
+}
+
+.btnAgregar:hover {
+  background-color: rgb(7, 109, 7);
+  color: white;
+  box-shadow: 0px 0px 20px rgb(7, 109, 7);
+}
+.btnRandom:hover {
+  background-color: rgb(87, 13, 121);
+  color: white;
+  box-shadow: 0px 0px 20px rgb(87, 13, 121);
+}
+.btnSalir:hover {
+  background-color: rgb(94, 6, 21);
+  color: white;
+  box-shadow: 0px 0px 20px rgb(94, 6, 21);
+}

@@ -1,0 +1,27 @@
+.nav {
+  width: 100%;
+  padding: 20px;
+  background-color: rgb(37, 37, 34);
+}
+
+.navContent {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navContent > a > img {
+  animation: turn 5s linear infinite alternate;
+}
+
+@keyframes turn {
+  from {
+    transform: rotateY(0);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}

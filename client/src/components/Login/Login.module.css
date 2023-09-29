@@ -1,0 +1,108 @@
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  background: url(house_bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  /* animation: animateBG 5s linear infinite alternate; */
+}
+
+.wrapperPoster {
+  width: 600px;
+}
+
+.wrapperPoster > img {
+  animation: rebote 2s linear infinite alternate;
+}
+
+.wrapperForm {
+  position: relative;
+  width: 700px;
+  border-radius: 12px;
+  border: 1px solid rgb(147, 148, 147);
+  box-shadow: 0px 0px 20px rgb(147, 148, 147);
+  padding: 40px;
+
+  background: transparent;
+  backdrop-filter: blur(10px);
+}
+/* 
+.wrapperForm:focus-within {
+  border: 1px solid rgb(6, 218, 6);
+  box-shadow: 0px 0px 20px rgb(6, 218, 6);
+} */
+
+.form {
+  display: grid;
+}
+.formGroup {
+  display: grid;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+.formGroupLabel {
+  color: rgb(167, 165, 165);
+  font-size: 22px;
+}
+
+.formGroupInput {
+  height: 60px;
+  border: none;
+  outline: none;
+  background-color: rgba(34, 34, 34, 0.7);
+  border: 2px solid rgba(34, 34, 34, 0.7);
+  border-radius: 12px;
+  color: rgb(167, 165, 165);
+  font-size: 18px;
+  padding-left: 10px;
+  animation: animateInput 2s linear infinite alternate;
+}
+
+.formGroupInput:focus {
+  border: 2px solid green;
+  box-shadow: 0px 0px 20px green;
+}
+
+.btnIngresar {
+  background-color: #427780;
+  outline: 0;
+  height: 55px;
+  border: 2px solid #427780;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btnIngresar:hover {
+  background-color: #1f646e;
+  box-shadow: 0px 0px 20px #366269;
+}
+.btnIngresar:disabled {
+  background-color: grey;
+  border: 2px solid grey;
+  box-shadow: none;
+}
+.inputError {
+  border: 2px solid red !important;
+  box-shadow: 0px 0px 20px red !important;
+}
+
+@keyframes rebote {
+  to {
+    transform: translateY(50px);
+  }
+}
+
+@keyframes animateBG {
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}

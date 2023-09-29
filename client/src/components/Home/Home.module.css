@@ -1,0 +1,26 @@
+.containerHome {
+  width: 90%;
+  margin: 20px auto;
+}
+.containerEmpty {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.containerCards {
+  width: 90%;
+  margin: 10px auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+
+@keyframes turnLogo {
+  to {
+    transform: rotateY(360deg);
+  }
+}

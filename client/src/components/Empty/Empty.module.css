@@ -1,0 +1,69 @@
+.containerEmpty {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+}
+
+.containerEmpty > img {
+  width: 100px;
+  margin: 20px auto;
+  animation: turn 3s linear infinite alternate;
+}
+
+.containerEmpty > p {
+  color: rgb(182, 165, 165);
+  font-size: 24px;
+  font-weight: lighter;
+  line-height: 40px;
+}
+
+.favoritesEmpty {
+  width: 80%;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.poster > img {
+  animation: animateImage 5s linear infinite alternate;
+}
+.favoritesEmpty .message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.message .text {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: flotate 3s linear infinite alternate;
+}
+.text img {
+  margin-right: 20px;
+}
+.text p {
+  color: rgb(143, 142, 142);
+  font-size: 18px;
+  font-weight: lighter;
+  line-height: 30px;
+}
+
+@keyframes turn {
+  from {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes animateImage {
+  100% {
+    filter: hue-rotate(50deg);
+  }
+}
+@keyframes flotate {
+  to {
+    transform: translateY(30px);
+  }
+}

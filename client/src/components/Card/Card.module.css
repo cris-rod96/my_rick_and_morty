@@ -1,0 +1,126 @@
+.card {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid rgba(80, 75, 75, 0.5);
+  border-radius: 12px;
+  box-shadow: 0px 0px 20px rgba(80, 75, 75, 0.5);
+  background-color: #292626;
+
+  animation: zoom 5s linear;
+}
+
+@keyframes zoom {
+  from {
+    filter: opacity(0);
+  }
+
+  to {
+    filter: opacity(1);
+  }
+}
+.cardAlive {
+  transition: all ease-in-out 1s;
+}
+
+.cardDead {
+  transition: all ease-in-out 1s;
+}
+.cardAlive:hover {
+  border: 2px solid green;
+  box-shadow: 0px 0px 20px green;
+}
+.cardDead:hover {
+  border: 2px solid red;
+  box-shadow: 0px 0px 20px red;
+}
+.cardHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+.btnDelete {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.btnDelete:hover {
+  color: rgb(112, 19, 19);
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.characterImage {
+  width: 200px;
+  margin: 20px auto;
+  border-radius: 50%;
+  border: 5px solid white;
+  cursor: pointer;
+  transition: transform ease-in-out 1s;
+}
+
+.borderAlive {
+  border: 5px solid green;
+}
+
+.borderDead {
+  border: 5px solid red;
+}
+.borderUnknown {
+  border: 5px solid chocolate;
+}
+
+.characterImage:hover {
+  transform: scale(1.03);
+}
+
+.characterName {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.cardFooter {
+  height: 80px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardFooterDead {
+  background-color: rgb(168, 4, 4);
+}
+.cardFooterAlive {
+  background-color: green;
+}
+
+.characterStatus {
+  color: white;
+  font-size: 20px;
+}
+
+.cardFooter > p:last-child {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+@keyframes turnLogo {
+  to {
+    transform: rotateY(360deg);
+  }
+}
