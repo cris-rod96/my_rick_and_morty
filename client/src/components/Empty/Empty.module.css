@@ -51,6 +51,27 @@
   line-height: 30px;
 }
 
+@media (width < 1000px) {
+  .favoritesEmpty {
+    width: 90%;
+    height: 80vh;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+  }
+  .poster {
+    display: none;
+  }
+  .message {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1fr);
+  }
+  .text {
+    width: 100%;
+  }
+}
+
 @keyframes turn {
   from {
     transform: rotateY(360deg);

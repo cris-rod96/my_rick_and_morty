@@ -3,23 +3,36 @@
   gap: 40px;
 }
 
-.navLinks > a {
+.navLink {
   font-size: 18px;
 }
 
-.navLinks > a > i {
+.navLink > i {
   margin-right: 10px;
 }
 
-.navLinks > a:hover {
+.navLink:hover {
   color: rgb(8, 124, 8);
   text-shadow: 0px 0px 20px green;
 }
 
-.navLinks > a:hover i {
+.navLink:hover i {
   color: rgb(163, 160, 160);
 }
-.navLinks > a:last-child:hover i {
+.navLink:last-child:hover i {
   color: gold;
   text-shadow: 0px 0px 20px gold;
+}
+
+.active {
+  color: rgb(8, 124, 8);
+  text-shadow: 0px 0px 20px green;
+}
+
+.activeGold {
+  color: rgb(8, 124, 8);
+  text-shadow: 0px 0px 20px green;
+}
+.activeGold > i {
+  color: gold !important;
 }

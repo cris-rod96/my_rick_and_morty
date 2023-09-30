@@ -1,23 +1,26 @@
 import styledEmpty from "./Empty.module.css";
 export default function Empty(props) {
   const { parent } = props;
-  return (
-    <>
-      {/* <div className={styledEmpty.containerEmpty}>
-      <img src="icon_rick.png" alt="" />
-      <p>
-        Al parecer aún no tienes personajes registrados. Para ingresar un
-        personaje puedes hacerlo de 2 formas:
-      </p>
-      <p>
-        1.- Ingresa un número entre 1 y 826 y presiona el botón (+) para
-        agregarlo
-      </p>
-      <p>
-        2.- Presionando el botón de random para agregar un personaje de manera
-        aleatoria
-      </p>
-    </div> */}
+  {
+    return parent === "Home" ? (
+      <>
+        <div className={styledEmpty.containerEmpty}>
+          <img src="icon_rick.png" alt="" />
+          <p>
+            Al parecer aún no tienes personajes registrados. Para ingresar un
+            personaje puedes hacerlo de 2 formas:
+          </p>
+          <p>
+            1.- Ingresa un número entre 1 y 826 y presiona el botón (+) para
+            agregarlo
+          </p>
+          <p>
+            2.- Presionando el botón de random para agregar un personaje de
+            manera aleatoria
+          </p>
+        </div>
+      </>
+    ) : (
       <div className={styledEmpty.favoritesEmpty}>
         <div className={styledEmpty.poster}>
           <img src={"icono_pag.png"} alt="" />
@@ -50,6 +53,6 @@ export default function Empty(props) {
           </div>
         </div>
       </div>
-    </>
-  );
+    );
+  }
 }

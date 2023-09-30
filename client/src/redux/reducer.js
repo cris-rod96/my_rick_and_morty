@@ -11,7 +11,6 @@ const initialState = {
 };
 export default function rootReducer(state = initialState, action) {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
     case ADD_FAVORITE:
       return {

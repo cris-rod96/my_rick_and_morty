@@ -8,9 +8,11 @@
   box-shadow: 0px 0px 20px rgba(80, 75, 75, 0.5);
   background-color: #292626;
 
-  animation: zoom 5s linear;
+  /* animation: zoom 5s linear; */
 }
-
+.loadingComponent {
+  position: relative;
+}
 @keyframes zoom {
   from {
     filter: opacity(0);

@@ -15,6 +15,7 @@ import About from "./components/About/About";
 function App() {
   const [access, setAccess] = useState(false);
   const [characters, setCharacters] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -25,13 +26,14 @@ function App() {
 
   const onSearch = async (id) => {
     if (id) {
+      id = Number(id);
       if (id < 1 || id > 826)
         return alert("Debes ingresar un número entre 1 y 826");
       if (characterDoesntExist(id)) {
         try {
           const { data } = await axios(`${GET_CHARACTER_BY_ID}/${id}`);
           if (data) {
-            const character = {
+            const newCharacter = {
               id,
               name: data.name,
               status: data.status,
@@ -39,7 +41,7 @@ function App() {
               origin: data.origin,
               image: data.image,
             };
-            setCharacters([...characters, character]);
+            setCharacters([newCharacter, ...characters]);
           }
         } catch (err) {
           alert(err);
@@ -107,7 +109,11 @@ function App() {
         <Route
           path="/home"
           element={
-            <Home characters={characters} handlerDelete={handlerDelete} />
+            <Home
+              characters={characters}
+              handlerDelete={handlerDelete}
+              loading={loading}
+            />
           }
         />
         <Route path="/detail/:id" element={<Detail />} />
