@@ -5,7 +5,6 @@ const getCharacter = async (req, res) => {
   try {
     const { id } = req.params;
     const { data } = await axios(`${URL}/${id}`);
-    console.log(data);
     if (data) {
       const character = {
         id,
@@ -20,7 +19,6 @@ const getCharacter = async (req, res) => {
     }
     return res.status(404).send("Character not found");
   } catch (err) {
-    console.log("Entra");
     return res.status(500).send(err.message);
   }
 };
