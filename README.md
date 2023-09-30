@@ -18,7 +18,7 @@ de favoritos a los personajes que mas le gusten y eliminarlos de la lista cuando
 Lo primero será clonar el proyecto
 ```
 
-$ git clone https://github.com/cris-rod96/my_rick_and_morty
+$ git clone https://github.com/cris-rod96/my_rick_and_morty.git
 
 ```
 Dentro del proyecto encontraras 2 carpetas
