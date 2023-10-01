@@ -5,13 +5,13 @@ export default function About(props) {
       <div className={styledAbout.header}>
         <div className={styledAbout.icons}>
           <div className={`${styledAbout.icon} ${styledAbout.iconEmail}`}>
-            <i class="fa-regular fa-envelope"></i>
+            <i className="fa-regular fa-envelope"></i>
           </div>
           <div className={`${styledAbout.icon} ${styledAbout.iconGit}`}>
-            <i class="fa-brands fa-github"></i>
+            <i className="fa-brands fa-github"></i>
           </div>
           <div className={`${styledAbout.icon} ${styledAbout.iconLinkedin}`}>
-            <i class="fa-brands fa-linkedin"></i>
+            <i className="fa-brands fa-linkedin"></i>
           </div>
         </div>
       </div>

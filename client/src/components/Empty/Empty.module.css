@@ -51,7 +51,7 @@
   line-height: 30px;
 }
 
-@media (width < 1000px) {
+@media (width < 1200px) {
   .favoritesEmpty {
     width: 90%;
     height: 80vh;

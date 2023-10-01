@@ -36,3 +36,9 @@
 .activeGold > i {
   color: gold !important;
 }
+
+@media (width < 1000px) {
+  .navLink > span {
+    display: none;
+  }
+}

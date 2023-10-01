@@ -12,7 +12,7 @@ export default function Navlinks(props) {
         }
       >
         <i className="fa-solid fa-house"></i>
-        Home
+        <span>Home</span>
       </NavLink>
       <NavLink
         to={"/about"}
@@ -23,7 +23,7 @@ export default function Navlinks(props) {
         }
       >
         <i className="fa-regular fa-address-card"></i>
-        About
+        <span>About</span>
       </NavLink>
       <NavLink
         to={"/favorites"}
@@ -34,7 +34,7 @@ export default function Navlinks(props) {
         }
       >
         <i className="fa-solid fa-star"></i>
-        Favorites
+        <span>Favorites</span>
       </NavLink>
     </div>
   );

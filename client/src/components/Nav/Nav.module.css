@@ -12,16 +12,9 @@
   align-items: center;
 }
 
-.navContent > a > img {
-  animation: turn 5s linear infinite alternate;
-}
-
-@keyframes turn {
-  from {
-    transform: rotateY(0);
-  }
-
-  to {
-    transform: rotateY(360deg);
+@media (width < 1000px) {
+  .navContent {
+    display: flex;
+    justify-content: space-around;
   }
 }
