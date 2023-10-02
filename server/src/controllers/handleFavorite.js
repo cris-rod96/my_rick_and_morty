@@ -1,8 +1,14 @@
 let myFavorites = [];
 const postFav = (req, res) => {
   const character = req.body;
+  if (myFavorites.length > 0) {
+    if (myFavorites.find((fav) => fav.id === character.id) === undefined) {
+      myFavorites.push(character);
+      return res.status(200).json(myFavorites);
+    }
+  }
   myFavorites.push(character);
-  res.status(200).json(myFavorites);
+  return res.status(200).json(myFavorites);
 };
 
 const deleteFav = (req, res) => {

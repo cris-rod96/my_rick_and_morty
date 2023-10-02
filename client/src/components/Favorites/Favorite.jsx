@@ -58,7 +58,7 @@ export default function Favorite(props) {
                 <option value="All">All</option>
                 <option value="Female">Female</option>
                 <option value="Male">Male</option>
-                <option value="Unknown">Unknown</option>
+                <option value="unknown">Unknown</option>
               </select>
             </div>
 

@@ -11,7 +11,7 @@ export default function Searchbar(props) {
   };
 
   const closeSession = () => {
-    confirm("¿Realmente deseas cerrar sesión") ? logOut() : null;
+    confirm("¿Realmente deseas cerrar sesión?") ? logOut() : null;
   };
   return (
     <div className={styledSearch.searchBar}>

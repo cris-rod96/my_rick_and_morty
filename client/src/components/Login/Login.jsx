@@ -64,7 +64,11 @@ export default function Login(props) {
               onChange={handleChange}
               name="email"
               value={credentials.email}
+              autoComplete="off"
             />
+            {errors.email ? (
+              <p className={styledLogin.messageError}>{errors.email}</p>
+            ) : null}
           </div>
           <div className={styledLogin.formGroup}>
             <label htmlFor="" className={styledLogin.formGroupLabel}>
@@ -79,6 +83,9 @@ export default function Login(props) {
               value={credentials.password}
               onChange={handleChange}
             />
+            {errors.password ? (
+              <p className={styledLogin.messageError}>{errors.password}</p>
+            ) : null}
           </div>
           <div className={styledLogin.formGroup}>
             <button

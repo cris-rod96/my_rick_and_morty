@@ -12,7 +12,7 @@ export default function validations(inputs) {
   }
 
   if (!regExpNumero.test(inputs.password)) {
-    errors.password = "Al menos 1 número";
+    errors.password = "Debe tener al menos 1 número";
   }
 
   if (inputs.password.length < 6 || inputs.password.length > 10) {

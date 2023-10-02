@@ -89,7 +89,12 @@
   border: 2px solid red !important;
   box-shadow: 0px 0px 20px red !important;
 }
-
+.messageError {
+  padding-left: 20px;
+  font-size: 20px;
+  color: rgb(248, 123, 123);
+  text-shadow: 8px 8px 20px rgb(248, 123, 123);
+}
 @keyframes rebote {
   to {
     transform: translateY(50px);
