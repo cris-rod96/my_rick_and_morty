@@ -8,6 +8,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Detail from "./components/Detail/Detail";
 import Favorite from "./components/Favorites/Favorite";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // const GET_CHARACTER_BY_ID = "https://rickandmortyapi.com/api/character";
 const GET_CHARACTER_BY_ID = "http://localhost:3005/rickandmorty/character";
 
@@ -78,7 +80,17 @@ function App() {
         setAccess(access);
         access && navigate("/home");
       } else {
-        alert("Credenciales incorrectas");
+        // Toastfy
+        toast.error("Credenciales incorrectas", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
       }
     } catch (err) {
       alert(err.message);
@@ -97,6 +109,7 @@ function App() {
 
   return (
     <div>
+      <ToastContainer theme="dark" />
       {pathname !== "/" ? (
         <Nav
           onSearch={onSearch}
