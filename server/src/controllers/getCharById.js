@@ -1,7 +1,7 @@
 const axios = require("axios");
 const URL = "https://rickandmortyapi.com/api/character";
 
-const getCharacter = async (req, res) => {
+const getCharacterByID = async (req, res) => {
   try {
     const { id } = req.params;
     const { data } = await axios(`${URL}/${id}`);
@@ -46,4 +46,4 @@ const getCharacter = async (req, res) => {
 //     });
 // };
 
-module.exports = { getCharacter };
+module.exports = { getCharacterByID };

@@ -1,14 +1,24 @@
-const users = require("../utils/users");
-const loginUser = (req, res) => {
-  const { email, password } = req.query;
+const { User } = require("../DB_Connection");
 
-  const filteredUser = users.find(
-    (user) => user.email === email && user.password === password
-  );
-
-  filteredUser
-    ? res.status(200).json({ access: true })
-    : res.status(200).json({ access: false });
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.query;
+    if (email && password) {
+      const user = await User.findOne({ where: { email } });
+      if (user) {
+        if (user.password === password) {
+          return res.status(200).json({
+            access: true,
+          });
+        }
+        return res.status(403).send("Contraseña incorrecta");
+      }
+      return res.status(404).send("Usuario no encontrado");
+    }
+    return res.status(400).send("Faltan datos");
+  } catch ({ message }) {
+    return res.status(500).send(message);
+  }
 };
 
-module.exports = { loginUser };
+module.exports = { login };
