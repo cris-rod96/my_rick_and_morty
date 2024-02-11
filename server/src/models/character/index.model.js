@@ -1,6 +1,6 @@
-const { DataTypes } = require("sequelize");
+import { Sequelize, DataTypes } from "sequelize";
 
-module.exports = (sequelize) => {
+export default (sequelize) => {
   sequelize.define(
     "Character",
     {
@@ -14,24 +14,25 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       status: {
-        type: DataTypes.ENUM(["Alive", "Dead", "unknown"]),
+        type: DataTypes.ENUM,
         allowNull: false,
+        values: ["Alive", "Dead", "unknown"],
       },
       species: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       gender: {
-        type: DataTypes.ENUM(["Female", "Male", "Genderless", "unknown"]),
+        type: DataTypes.ENUM,
         allowNull: false,
-      },
-      origin: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        values: ["Male", "Female", "Genderless", "unknown"],
       },
       image: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          isUrl: true,
+        },
       },
     },
     {
