@@ -1,11 +1,14 @@
 import { Sequelize } from "sequelize";
 import { UserModel, CharacterModel } from "../models/index.models.js";
-const { URI_DATABASE } = process.env;
+import { URI_DATABASE } from "../config/global.js";
 const conn = new Sequelize(URI_DATABASE, { logging: false, native: false });
 
 UserModel(conn);
 CharacterModel(conn);
 
-const { Character } = conn.models;
+const { Character, User } = conn.models;
 
-export { conn, Character };
+User.belongsToMany(Character, { through: "User_Favorities_Characters" });
+Character.belongsToMany(User, { through: "User_Favorities_Characters" });
+
+export { conn, Character, User };

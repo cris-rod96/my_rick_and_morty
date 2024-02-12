@@ -1,0 +1,17 @@
+meta {
+  name: GET ALL FAVORITES
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/api/v1/favorites/list
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userID": "d87edc92-af5a-43d7-80d5-18428da9714f"
+  }
+}

@@ -1,11 +1,11 @@
 import server from "./src/server.js";
 import { conn } from "./src/database/conn.js";
 import loader from "./src/scripts/seed.js";
-const { HOST_PORT } = process.env;
+import { HOST_PORT } from "./src/config/global.js";
 conn
   .sync({
     logging: false,
-    force: true,
+    force: false,
   })
   .then(() => {
     server.listen(HOST_PORT, () => {

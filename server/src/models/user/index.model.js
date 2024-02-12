@@ -5,6 +5,7 @@ export default (sequelize) => {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
+      allowNull: true,
       defaultValue: DataTypes.UUIDV4,
     },
     email: {

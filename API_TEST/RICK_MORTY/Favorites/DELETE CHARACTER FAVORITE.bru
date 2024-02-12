@@ -1,0 +1,18 @@
+meta {
+  name: DELETE CHARACTER FAVORITE
+  type: http
+  seq: 2
+}
+
+delete {
+  url: http://localhost:8080/api/v1/favorites/del
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userID": "f470a0c7-564a-4666-9b05-cd48c56f661c",
+    "characterID": 15
+  }
+}
