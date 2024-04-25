@@ -1,29 +1,22 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import Empty from "../Empty/Empty";
 import styledFavorites from "./Favorites.module.css";
 import { useEffect } from "react";
-import {
-  filterCharacterByGender,
-  filterCharacterByStatus,
-  orderMyFavorites,
-} from "../../redux/actions";
+
 export default function Favorite(props) {
-  const dispatch = useDispatch();
-  const myFavorites = useSelector((store) => store.myFavorites);
+  const { myFavorites } = useSelector((state) => state.favorites);
+
   const orderFavorites = (event) => {
     const order = event.target.value;
-    dispatch(orderMyFavorites(order));
   };
 
   const filterGender = (event) => {
     const gender = event.target.value;
-    dispatch(filterCharacterByGender(gender));
   };
 
   const filterByStatus = (event) => {
     const status = event.target.value;
-    dispatch(filterCharacterByStatus(status));
   };
 
   useEffect(() => {}, [myFavorites]);
@@ -82,7 +75,14 @@ export default function Favorite(props) {
 
           <div className={styledFavorites.containerCards}>
             {myFavorites.map((fav) => {
-              return <Card character={fav} key={fav.id} parent="Favorite" />;
+              return (
+                <Card
+                  character={fav}
+                  key={fav.id}
+                  parent="Favorite"
+                  isFav={true}
+                />
+              );
             })}
           </div>
         </div>

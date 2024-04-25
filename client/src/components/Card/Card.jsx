@@ -1,41 +1,31 @@
 import { NavLink } from "react-router-dom";
 import styledCard from "./Card.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { addFavorite, removeFavorite } from "../../redux/actions";
+import { utilStorage } from "../../utils";
+import { favoriteEndpoints } from "../../api/favorite.api";
+import { useDispatch } from "react-redux";
+import {
+  removeFavorites,
+  addFavorite,
+} from "../../redux/slices/favorite.slice";
 export default function Card(props) {
-  const { character, handlerDelete, parent } = props;
-
+  const { character, isFav } = props;
+  const { id } = utilStorage.getDataStorage("user-session");
   const dispatch = useDispatch();
-  const myFavorites = useSelector((store) => store.myFavorites);
-  const [isFav, setIsFav] = useState(false);
-
   const markFavorite = () => {
     if (isFav) {
-      setIsFav(false);
-      dispatch(removeFavorite(character.id));
+      favoriteEndpoints
+        .removeFavorite(id, character.id)
+        .then(() => {
+          dispatch(removeFavorites(character.id));
+        })
+        .catch(console.log);
     } else {
-      setIsFav(true);
-      dispatch(addFavorite(character));
+      favoriteEndpoints
+        .saveFavorite(id, character.id)
+        .then(() => {})
+        .catch(addFavorite(character));
     }
   };
-
-  const deleteCharacter = () => {
-    const char = myFavorites.find((fav) => fav.id === character.id);
-    if (char) {
-      dispatch(removeFavorite(character.id));
-    }
-    handlerDelete(character.id);
-  };
-
-  useEffect(() => {
-    myFavorites.forEach((fav) => {
-      if (fav.id === character.id) {
-        setIsFav(true);
-      }
-    });
-  }, [myFavorites]);
-
   return (
     <div
       className={`${styledCard.card} ${
@@ -64,7 +54,6 @@ export default function Card(props) {
 
         <p className={styledCard.characterName}>{character.name}</p>
       </div>
-
       <div
         className={`${styledCard.cardFooter} ${
           character.status === "Dead"

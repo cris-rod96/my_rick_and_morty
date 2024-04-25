@@ -1,13 +1,15 @@
-import { useParams } from "react-router-dom";
-import styledDetail from "./Detail.module.css";
-import { useEffect, useState } from "react";
 import axios from "axios";
-const GET_CHARACTER_BY_ID = "http://localhost:3005/rickandmorty/character";
-export default function Detail(props) {
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { BASE_URL } from "../../config";
+
+import styledDetail from "./Detail.module.css";
+
+export default function Detail() {
   const { id } = useParams();
   const [character, setCharacter] = useState({});
   useEffect(() => {
-    axios(`${GET_CHARACTER_BY_ID}/${id}`).then(({ data }) => {
+    axios(`${BASE_URL}/character/${id}`).then(({ data }) => {
       setCharacter(data);
     });
   }, [id]);

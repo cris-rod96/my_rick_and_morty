@@ -8,108 +8,98 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Detail from "./components/Detail/Detail";
 import Favorite from "./components/Favorites/Favorite";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// const GET_CHARACTER_BY_ID = "https://rickandmortyapi.com/api/character";
-const GET_CHARACTER_BY_ID = "http://localhost:3005/rickandmorty/character";
 
 import About from "./components/About/About";
+import { BASE_URL } from "./config";
+import { utilStorage } from "./utils";
+import { authEndpoints } from "./api/auth.api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addCharacter,
+  removeCharacter,
+  saveCharacters,
+} from "./redux/slices/character.slice";
+import { favoriteEndpoints } from "./api/favorite.api";
+import { saveFavorites } from "./redux/slices/favorite.slice";
+import { characterEndpoints } from "./api/character.api";
+
+import { Toaster, toast } from "sonner";
+
 function App() {
-  const [access, setAccess] = useState(false);
-  const [characters, setCharacters] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { myFavorites } = useSelector((state) => state.favorites);
+  const { myCharacters } = useSelector((state) => state.characters);
 
-  const characterDoesntExist = (id) => {
-    return characters.find((character) => character.id === id) === undefined;
+  console.log(myFavorites);
+  const characterNotExists = (id) => {
+    return (
+      myCharacters.find((character) => character.id === Number(id)) ===
+      undefined
+    );
   };
 
-  const onSearch = async (id) => {
-    if (id) {
-      id = Number(id);
-      if (id < 1 || id > 826)
-        return alert("Debes ingresar un número entre 1 y 826");
-      if (characterDoesntExist(id)) {
-        try {
-          const { data } = await axios(`${GET_CHARACTER_BY_ID}/${id}`);
-          if (data) {
-            const newCharacter = {
-              id,
-              name: data.name,
-              status: data.status,
-              gender: data.gender,
-              origin: data.origin,
-              image: data.image,
-            };
-            setCharacters([newCharacter, ...characters]);
-          }
-        } catch (err) {
-          alert(err);
-        }
-      } else {
-        alert("Este personaje ya ha sido agregado");
-      }
-    } else {
-      alert("Debes ingresar un número entre 1 y 826");
+  const onSearch = (id) => {
+    if (id < 1 || id > 826) {
+      toast.error("Rango no permitido. Entre 1 y 826");
+      return;
     }
-  };
+    if (!characterNotExists(id)) {
+      toast.error("Personaje ya agregado");
+      return;
+    }
 
+    characterEndpoints
+      .getByID(id)
+      .then((res) => {
+        dispatch(addCharacter(res.data));
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  };
   const onSearchRandom = () => {
-    const idRandom = Math.floor(Math.random() * (826 - 1 + 1) + 1);
-    if (!characterDoesntExist(idRandom)) onSearchRandom();
-    onSearch(idRandom);
-  };
-
-  const handlerDelete = (id) => {
-    setCharacters([
-      ...characters.filter((character) => character.id !== Number(id)),
-    ]);
-  };
-
-  const login = async (userData) => {
-    try {
-      const { email, password } = userData;
-      const {
-        data: { access },
-      } = await axios(
-        `${"http://localhost:3005/rickandmorty/login"}?email=${email}&password=${password}`
-      );
-      if (access) {
-        setAccess(access);
-        access && navigate("/home");
-      } else {
-        // Toastfy
-        toast.error("Credenciales incorrectas", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    } catch (err) {
-      alert(err.message);
+    const randomID = Math.floor(Math.random() * (826 - 1 * 1) + 1);
+    if (characterNotExists(randomID)) {
+      characterEndpoints
+        .getByID(randomID)
+        .then((res) => {
+          dispatch(addCharacter(res.data));
+        })
+        .catch(console.log);
+    } else {
+      onSearchRandom();
     }
   };
-
-  const logOut = () => {
-    setAccess(false);
+  const logOut = () => {};
+  const handlerDelete = () => {};
+  const login = (credentials) => {
+    authEndpoints
+      .login(credentials.email, credentials.password)
+      .then((res) => {
+        const { access, message, user } = res.data;
+        utilStorage.saveDataStorage("access", access);
+        utilStorage.saveDataStorage("user-session", user);
+        toast.success(message);
+        navigate("/home");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   };
 
   useEffect(() => {
-    if (!access) {
-      navigate("/");
-    }
-  }, [access]);
+    const charactersAdded = utilStorage.getDataStorage("characters_added");
+    if (charactersAdded !== null) dispatch(saveCharacters(charactersAdded));
+    else dispatch(saveCharacters([]));
+  }, []);
 
   return (
     <div>
-      <ToastContainer theme="dark" />
+      <Toaster richColors />
       {pathname !== "/" ? (
         <Nav
           onSearch={onSearch}
@@ -121,13 +111,7 @@ function App() {
         <Route path="/" element={<Login login={login} />} />
         <Route
           path="/home"
-          element={
-            <Home
-              characters={characters}
-              handlerDelete={handlerDelete}
-              loading={loading}
-            />
-          }
+          element={<Home handlerDelete={handlerDelete} loading={loading} />}
         />
         <Route path="/detail/:id" element={<Detail />} />
         <Route

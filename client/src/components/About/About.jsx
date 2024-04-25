@@ -1,5 +1,5 @@
 import styledAbout from "./About.module.css";
-export default function About(props) {
+export default function About() {
   return (
     <div className={styledAbout.containerAbout}>
       <div className={styledAbout.header}>
@@ -39,84 +39,6 @@ export default function About(props) {
             <img src={"perfil.jpg"} alt="" />
           </div>
         </div>
-
-        {/* <div className={styledAbout.contentSkills}>
-          <div className={styledAbout.henrySkills}>
-            <div className={styledAbout.iconSkills}>
-              <div className={styledAbout.skill}>
-                <img src={"html.png"} alt="" />
-              </div>
-              <div className={styledAbout.skill}>
-                <img src={"js.png"} />
-              </div>
-              <div className={styledAbout.skill}>
-                <img src={"react.png"} alt="" />
-              </div>
-              <div className={styledAbout.skill}>
-                <img src={"node.png"} alt="" />
-              </div>
-
-              <div className={styledAbout.skill}>
-                <img src={"express.png"} alt="" />
-              </div>
-            </div>
-            <div className={styledAbout.description}>
-              <h3>Henry Skills</h3>
-              <div className={`${styledAbout.text} ${styledAbout.borderRight}`}>
-                <p>
-                  Durante esta hermosa estapa de Bootcamp de Henry he adquirido
-                  nuevos conocimientos que me han permitido poder crear este
-                  proyecto. Este proyecto es una muestra de lo aprendido en
-                  HENRY.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className={styledAbout.contentSkills}>
-            <div className={styledAbout.henrySkills}>
-              <div className={styledAbout.description}>
-                <h3>Skill adicionales</h3>
-                <div className={styledAbout.text}>
-                  <p>
-                    Durante mi etapa estudiantil (no siempre enfocada en el
-                    desarrollo web), he adquirido varias experiencias con
-                    distintos lenguajes y tecnologías que también forma parte de
-                    mi como programador.
-                  </p>
-                </div>
-              </div>
-              <div className={styledAbout.iconSkills}>
-                <div className={styledAbout.skill}>
-                  <img src={"arduino.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"bootstrap.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"mysql.png"} />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"php.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"python.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"csharp.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"css3.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img ssrc={"sqlserver.png"} alt="" />
-                </div>
-                <div className={styledAbout.skill}>
-                  <img src={"java.png"} alt="" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
