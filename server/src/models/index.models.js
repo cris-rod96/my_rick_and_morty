@@ -1,4 +1,4 @@
 import UserModel from "./user/index.model.js";
 import CharacterModel from "./character/index.model.js";
-
-export { UserModel, CharacterModel };
+import FavoriteModel from "./favorites/index.model.js";
+export { UserModel, CharacterModel, FavoriteModel };

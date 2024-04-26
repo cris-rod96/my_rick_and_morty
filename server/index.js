@@ -5,7 +5,7 @@ import { HOST_PORT } from "./src/config/global.js";
 conn
   .sync({
     logging: false,
-    force: false,
+    force: true,
   })
   .then(() => {
     server.listen(HOST_PORT, () => {
