@@ -33,7 +33,6 @@ function App() {
   const { pathname } = useLocation();
   const { myFavorites } = useSelector((state) => state.favorites);
   const { myCharacters } = useSelector((state) => state.characters);
-
   console.log(myFavorites);
   const characterNotExists = (id) => {
     return (
