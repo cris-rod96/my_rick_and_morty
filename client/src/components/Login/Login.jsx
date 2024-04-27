@@ -1,8 +1,12 @@
 import { useState } from "react";
 import styledLogin from "./Login.module.css";
 import validations from "../../helpers/validations";
-export default function Login(props) {
-  const { login } = props;
+import useLogin from "../../hooks/useLogin";
+import { useEffect } from "react";
+import { Toaster } from "sonner";
+import { toast } from "sonner";
+export default function Login() {
+  const { login } = useLogin();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -38,11 +42,13 @@ export default function Login(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (Object.values(errors).length === 0) {
-      login(credentials);
+      login(credentials, toast);
     }
   };
+
   return (
     <div className={styledLogin.wrapper}>
+      <Toaster richColors />
       <div className={styledLogin.wrapperPoster}>
         <img src={"/poster.jpg"} alt="Logo Rick & Morty" />
       </div>

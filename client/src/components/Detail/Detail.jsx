@@ -3,32 +3,36 @@ import { useParams } from "react-router-dom";
 import styledDetail from "./Detail.module.css";
 import { characterEndpoints } from "../../api/character.api";
 import { useSelector } from "react-redux";
-import { toast } from "sonner";
+import useDetail from "../../hooks/useDetail";
+import { useOutletContext } from "react-router-dom";
 
-export default function Detail() {
+export default function Detail(props) {
+  const { toast } = useOutletContext();
+  const { getCharacterByID, character, available } = useDetail();
   const { id } = useParams();
   const { myCharacters } = useSelector((state) => state.characters);
-  const [available, setAvailable] = useState(false);
-  const [character, setCharacter] = useState({});
   useEffect(() => {
-    const foundCharacter = myCharacters.find(
-      (character) => character.id === Number(id)
-    );
-    if (foundCharacter) {
-      setAvailable(true);
-      characterEndpoints
-        .getByID(id)
-        .then((res) => {
-          setCharacter(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      toast.error(
-        "Acción no permitida. Solo puedes ver el detalle de personajes que hayas agregado"
-      );
+    if (id) {
+      getCharacterByID(id, toast);
     }
+    // const foundCharacter = myCharacters.find(
+    //   (character) => character.id === Number(id)
+    // );
+    // if (foundCharacter) {
+    //   setAvailable(true);
+    //   characterEndpoints
+    //     .getByID(id)
+    //     .then((res) => {
+    //       setCharacter(res.data);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   toast.error(
+    //     "Acción no permitida. Solo puedes ver el detalle de personajes que hayas agregado"
+    //   );
+    // }
   }, [id, myCharacters]);
   return available ? (
     <div

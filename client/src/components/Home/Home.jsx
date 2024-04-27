@@ -4,32 +4,28 @@ import Empty from "../Empty/Empty";
 import styledHome from "./Home.module.css";
 import { useEffect } from "react";
 import { utilStorage } from "../../utils";
-import { favoriteEndpoints } from "../../api/favorite.api";
-import { saveFavorites } from "../../redux/slices/favorite.slice";
 import PropTypes from "prop-types";
 import { Toaster, toast } from "sonner";
-export default function Home({ handlerDelete }) {
+import useHome from "../../hooks/useHome";
+import { useNavigate } from "react-router-dom";
+export default function Home() {
+  const { handlerDelete, fetchFavorites, fetchCharacters } = useHome();
+  const navigate = useNavigate();
   const { myCharacters } = useSelector((state) => state.characters);
   const { myFavorites } = useSelector((state) => state.favorites);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const { id } = utilStorage.getDataStorage("user-session");
-    if (id) {
-      favoriteEndpoints
-        .getAllFavorites(id)
-        .then((res) => {
-          dispatch(saveFavorites(res.data));
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message);
-        });
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     const access = utilStorage.getDataStorage("access");
-    if (!access) toast.error("Acceso denegado. Debes iniciar sesión");
+    if (!access) {
+      toast.error("Acceso denegado. Debes iniciar sesión");
+      navigate("/auth/login");
+    } else {
+      const userSession = utilStorage.getDataStorage("user-session");
+      if (userSession) {
+        fetchFavorites(userSession.id, toast);
+        fetchCharacters();
+      }
+    }
   }, []);
 
   return myCharacters ? (

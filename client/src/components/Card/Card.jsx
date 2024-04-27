@@ -13,30 +13,32 @@ import { Toaster, toast } from "sonner";
 export default function Card(props) {
   const { character, isFav, handlerDelete, parent } = props;
   const { myFavorites } = useSelector((state) => state.favorites);
-  console.log(myFavorites);
-  const { id } = utilStorage.getDataStorage("user-session");
+  const userSession = utilStorage.getDataStorage("user-session");
   const dispatch = useDispatch();
   const markFavorite = () => {
-    if (isFav) {
-      favoriteEndpoints
-        .removeFavorite(id, character.id)
-        .then(() => {
-          dispatch(removeFavorites(character.id));
-          toast.success("Personaje eliminado de la lista de favoritos");
-        })
-        .catch((err) => {
-          toast.error(err.response.data.message);
-        });
-    } else {
-      favoriteEndpoints
-        .saveFavorite(id, character.id)
-        .then(() => {
-          dispatch(addFavorite(character));
-          toast.success("Personaje agregado a la lista de favoritos");
-        })
-        .catch((err) => {
-          toast.error(err.response.data.message);
-        });
+    if (userSession) {
+      const { id } = userSession;
+      if (isFav) {
+        favoriteEndpoints
+          .removeFavorite(id, character.id)
+          .then(() => {
+            dispatch(removeFavorites(character.id));
+            toast.success("Personaje eliminado de la lista de favoritos");
+          })
+          .catch((err) => {
+            toast.error(err.response.data.message);
+          });
+      } else {
+        favoriteEndpoints
+          .saveFavorite(id, character.id)
+          .then(() => {
+            dispatch(addFavorite(character));
+            toast.success("Personaje agregado a la lista de favoritos");
+          })
+          .catch((err) => {
+            toast.error(err.response.data.message);
+          });
+      }
     }
   };
 
@@ -48,7 +50,7 @@ export default function Card(props) {
     );
     if (foundFavorite) {
       favoriteEndpoints
-        .removeFavorite(id, character.id)
+        .removeFavorite(userSession.id, character.id)
         .then(() => {
           dispatch(removeFavorites(character.id));
           message += "y de los favoritos";
