@@ -108,7 +108,7 @@ function App() {
     if (!access) {
       navigate("/");
     } else {
-      window.history.back();
+      navigate("/home");
     }
   }, [access, accessStorage, navigate]);
 
