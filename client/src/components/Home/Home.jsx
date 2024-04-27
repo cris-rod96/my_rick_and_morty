@@ -5,12 +5,14 @@ import styledHome from "./Home.module.css";
 import { useEffect } from "react";
 import { utilStorage } from "../../utils";
 import { favoriteEndpoints } from "../../api/favorite.api";
-import { addFavorite, saveFavorites } from "../../redux/slices/favorite.slice";
+import { saveFavorites } from "../../redux/slices/favorite.slice";
+import PropTypes from "prop-types";
+import { Toaster, toast } from "sonner";
 export default function Home({ handlerDelete }) {
   const { myCharacters } = useSelector((state) => state.characters);
   const { myFavorites } = useSelector((state) => state.favorites);
   const dispatch = useDispatch();
-  console.log(myFavorites);
+
   useEffect(() => {
     const { id } = utilStorage.getDataStorage("user-session");
     if (id) {
@@ -19,12 +21,20 @@ export default function Home({ handlerDelete }) {
         .then((res) => {
           dispatch(saveFavorites(res.data));
         })
-        .catch((err) => {});
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
     }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const access = utilStorage.getDataStorage("access");
+    if (!access) toast.error("Acceso denegado. Debes iniciar sesión");
   }, []);
 
   return myCharacters ? (
     <div className={styledHome.containerHome}>
+      <Toaster richColors />
       {myCharacters.length === 0 ? (
         <div className={styledHome.containerEmpty}>
           <Empty parent="Home" />
@@ -54,3 +64,7 @@ export default function Home({ handlerDelete }) {
     ""
   );
 }
+
+Home.propTypes = {
+  handlerDelete: PropTypes.func.isRequired,
+};

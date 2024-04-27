@@ -1,19 +1,36 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { BASE_URL } from "../../config";
-
 import styledDetail from "./Detail.module.css";
+import { characterEndpoints } from "../../api/character.api";
+import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 export default function Detail() {
   const { id } = useParams();
+  const { myCharacters } = useSelector((state) => state.characters);
+  const [available, setAvailable] = useState(false);
   const [character, setCharacter] = useState({});
   useEffect(() => {
-    axios(`${BASE_URL}/character/${id}`).then(({ data }) => {
-      setCharacter(data);
-    });
-  }, [id]);
-  return (
+    const foundCharacter = myCharacters.find(
+      (character) => character.id === Number(id)
+    );
+    if (foundCharacter) {
+      setAvailable(true);
+      characterEndpoints
+        .getByID(id)
+        .then((res) => {
+          setCharacter(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      toast.error(
+        "Acción no permitida. Solo puedes ver el detalle de personajes que hayas agregado"
+      );
+    }
+  }, [id, myCharacters]);
+  return available ? (
     <div
       className={`${styledDetail.card} ${
         character.status === "Dead"
@@ -73,6 +90,17 @@ export default function Detail() {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className={styledDetail.containerError}>
+      <div className={styledDetail.errorImageContainer}>
+        <img
+          src="/no_permitido.png"
+          alt="Not Available Image"
+          className={styledDetail.errorImage}
+        />
+      </div>
+      <h3 className={styledDetail.textError}>¡No puedes hacer esto!</h3>
     </div>
   );
 }

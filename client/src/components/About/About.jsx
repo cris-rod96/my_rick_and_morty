@@ -4,15 +4,27 @@ export default function About() {
     <div className={styledAbout.containerAbout}>
       <div className={styledAbout.header}>
         <div className={styledAbout.icons}>
-          <div className={`${styledAbout.icon} ${styledAbout.iconEmail}`}>
+          <a
+            href="mailto:crisrodam1996@gmail.com?subject=Quiero contactar contigo"
+            target="__blank"
+            className={`${styledAbout.icon} ${styledAbout.iconEmail}`}
+          >
             <i className="fa-regular fa-envelope"></i>
-          </div>
-          <div className={`${styledAbout.icon} ${styledAbout.iconGit}`}>
+          </a>
+          <a
+            href="https://github.com/cris-rod96"
+            target="__blank"
+            className={`${styledAbout.icon} ${styledAbout.iconGit}`}
+          >
             <i className="fa-brands fa-github"></i>
-          </div>
-          <div className={`${styledAbout.icon} ${styledAbout.iconLinkedin}`}>
+          </a>
+          <a
+            href="https://linkedin.com/in/cristhian-rodriguez-659779205/"
+            target="__blank"
+            className={`${styledAbout.icon} ${styledAbout.iconLinkedin}`}
+          >
             <i className="fa-brands fa-linkedin"></i>
-          </div>
+          </a>
         </div>
       </div>
       <div className={styledAbout.content}>
@@ -28,10 +40,6 @@ export default function About() {
                 siempre me he interesado mayormente por el desarrollo web.
                 Abierto a conocer personas, colaborar o charlar sobre proyectos
                 y novedades tecnólogicas.
-              </p>
-
-              <p>
-                Este módulo aún esta en desarrollo. Tenganme paciencia U_U,.
               </p>
             </div>
           </div>

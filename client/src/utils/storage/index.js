@@ -12,9 +12,9 @@ const removeDataStorage = (key) => {
 };
 
 const updateAccess = (key) => {
-  const dataStorage = getDataStorage(key);
+  let dataStorage = getDataStorage(key);
   if (dataStorage) {
-    dataStorage.access = false;
+    dataStorage = false;
     saveDataStorage(key, dataStorage);
   }
 };

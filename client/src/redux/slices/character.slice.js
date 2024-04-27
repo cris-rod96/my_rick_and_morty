@@ -20,11 +20,12 @@ export const characterSlice = createSlice({
 
     removeCharacter: (state, action) => {
       const id = action.payload;
+      console.log(id);
       const newCharacters = state.myCharacters.filter(
         (character) => character.id !== id
       );
       state.myCharacters = [...newCharacters];
-      utilStorage.saveDataStorage("characters_added", state.myCharacters);
+      utilStorage.saveDataStorage("characters_added", newCharacters);
     },
   },
 });

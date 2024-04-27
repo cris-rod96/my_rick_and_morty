@@ -36,7 +36,7 @@ export const favoriteSlice = createSlice({
         (favorite) => favorite.id !== id
       );
       state.myFavorites = [...newFavorites];
-      utilStorage.saveDataStorage("favorites_added", newFavorites);
+      utilStorage.saveDataStorage("favorites_added", state.myFavorites);
     },
   },
 });

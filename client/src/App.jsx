@@ -4,14 +4,12 @@ import Login from "./components/Login/Login";
 import Error from "./components/Error/Error";
 import Nav from "./components/Nav/Nav";
 import Home from "./components/Home/Home";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Detail from "./components/Detail/Detail";
 import Favorite from "./components/Favorites/Favorite";
 import "react-toastify/dist/ReactToastify.css";
 
 import About from "./components/About/About";
-import { BASE_URL } from "./config";
 import { utilStorage } from "./utils";
 import { authEndpoints } from "./api/auth.api";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,20 +18,16 @@ import {
   removeCharacter,
   saveCharacters,
 } from "./redux/slices/character.slice";
-import { favoriteEndpoints } from "./api/favorite.api";
-import { saveFavorites } from "./redux/slices/favorite.slice";
 import { characterEndpoints } from "./api/character.api";
 
 import { Toaster, toast } from "sonner";
 
 function App() {
-  const [loading, setLoading] = useState(false);
+  const [access, setAccess] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { myFavorites } = useSelector((state) => state.favorites);
   const { myCharacters } = useSelector((state) => state.characters);
-  console.log(myFavorites);
   const characterNotExists = (id) => {
     return (
       myCharacters.find((character) => character.id === Number(id)) ===
@@ -42,23 +36,27 @@ function App() {
   };
 
   const onSearch = (id) => {
-    if (id < 1 || id > 826) {
-      toast.error("Rango no permitido. Entre 1 y 826");
-      return;
-    }
-    if (!characterNotExists(id)) {
-      toast.error("Personaje ya agregado");
-      return;
-    }
+    if (id) {
+      if (id < 1 || id > 826) {
+        toast.error("Rango no permitido. Entre 1 y 826");
+        return;
+      }
+      if (!characterNotExists(id)) {
+        toast.error("Personaje ya agregado");
+        return;
+      }
 
-    characterEndpoints
-      .getByID(id)
-      .then((res) => {
-        dispatch(addCharacter(res.data));
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      characterEndpoints
+        .getByID(id)
+        .then((res) => {
+          dispatch(addCharacter(res.data));
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
+    } else {
+      toast.error("Ingresa un número entre 1 y 826");
+    }
   };
   const onSearchRandom = () => {
     const randomID = Math.floor(Math.random() * (826 - 1 * 1) + 1);
@@ -68,13 +66,21 @@ function App() {
         .then((res) => {
           dispatch(addCharacter(res.data));
         })
-        .catch(console.log);
+        .catch((err) => {
+          toast.error(err.response.data.message);
+        });
     } else {
       onSearchRandom();
     }
   };
-  const logOut = () => {};
-  const handlerDelete = () => {};
+  const logOut = () => {
+    utilStorage.updateAccess("access");
+    setAccess(!access);
+    toast.info("Adiós. Esperamos verte pronto.");
+  };
+  const handlerDelete = (id) => {
+    dispatch(removeCharacter(id));
+  };
   const login = (credentials) => {
     authEndpoints
       .login(credentials.email, credentials.password)
@@ -82,7 +88,7 @@ function App() {
         const { access, message, user } = res.data;
         utilStorage.saveDataStorage("access", access);
         utilStorage.saveDataStorage("user-session", user);
-        toast.success(message);
+        toast.success(`${message}. Bienvenido.`);
         navigate("/home");
       })
       .catch((err) => {
@@ -94,7 +100,17 @@ function App() {
     const charactersAdded = utilStorage.getDataStorage("characters_added");
     if (charactersAdded !== null) dispatch(saveCharacters(charactersAdded));
     else dispatch(saveCharacters([]));
-  }, []);
+  }, [dispatch]);
+
+  const accessStorage = utilStorage.getDataStorage("access");
+  useEffect(() => {
+    setAccess(accessStorage);
+    if (!access) {
+      navigate("/");
+    } else {
+      window.history.back();
+    }
+  }, [access, accessStorage, navigate]);
 
   return (
     <div>
@@ -110,7 +126,8 @@ function App() {
         <Route path="/" element={<Login login={login} />} />
         <Route
           path="/home"
-          element={<Home handlerDelete={handlerDelete} loading={loading} />}
+          access={access}
+          element={<Home handlerDelete={handlerDelete} />}
         />
         <Route path="/detail/:id" element={<Detail />} />
         <Route
