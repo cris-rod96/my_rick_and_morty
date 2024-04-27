@@ -4,8 +4,8 @@ import {
   CharacterModel,
   FavoriteModel,
 } from "../models/index.models.js";
-import { URI_DATABASE } from "../config/global.js";
-const conn = new Sequelize(URI_DATABASE, { logging: false, native: false });
+import { DB_URI } from "../config/global.js";
+const conn = new Sequelize(DB_URI.URI, DB_URI.CONFIG);
 
 UserModel(conn);
 CharacterModel(conn);
