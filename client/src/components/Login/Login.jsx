@@ -53,7 +53,7 @@ export default function Login() {
     <div className={styledLogin.wrapper}>
       <Toaster richColors />
       <div className={styledLogin.wrapperPoster}>
-        <img src={"/poster.jpg"} alt="Logo Rick & Morty" />
+        <img src={"/poster.webp"} alt="Logo Rick & Morty" />
       </div>
       <div className={styledLogin.wrapperForm}>
         <form

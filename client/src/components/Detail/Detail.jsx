@@ -78,7 +78,7 @@ export default function Detail() {
     <div className={styledDetail.containerError}>
       <div className={styledDetail.errorImageContainer}>
         <img
-          src="/no_permitido.png"
+          src="/no_permitido.webp"
           alt="Not Available Image"
           className={styledDetail.errorImage}
         />

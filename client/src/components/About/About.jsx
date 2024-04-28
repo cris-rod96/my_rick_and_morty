@@ -44,7 +44,7 @@ export default function About() {
             </div>
           </div>
           <div className={styledAbout.profile}>
-            <img src={"perfil.jpg"} alt="" />
+            <img src={"perfil.webp"} alt="" />
           </div>
         </div>
       </div>
