@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import Empty from "../Empty/Empty";
 import styledHome from "./Home.module.css";

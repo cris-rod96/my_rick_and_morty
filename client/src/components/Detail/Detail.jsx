@@ -1,39 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styledDetail from "./Detail.module.css";
-import { characterEndpoints } from "../../api/character.api";
-import { useSelector } from "react-redux";
 import useDetail from "../../hooks/useDetail";
 import { useOutletContext } from "react-router-dom";
 
-export default function Detail(props) {
+export default function Detail() {
   const { toast } = useOutletContext();
-  const { getCharacterByID, character, available } = useDetail();
   const { id } = useParams();
-  const { myCharacters } = useSelector((state) => state.characters);
+  const { getCharacterByID, character, available } = useDetail(toast);
   useEffect(() => {
     if (id) {
-      getCharacterByID(id, toast);
+      getCharacterByID(id);
     }
-    // const foundCharacter = myCharacters.find(
-    //   (character) => character.id === Number(id)
-    // );
-    // if (foundCharacter) {
-    //   setAvailable(true);
-    //   characterEndpoints
-    //     .getByID(id)
-    //     .then((res) => {
-    //       setCharacter(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } else {
-    //   toast.error(
-    //     "Acción no permitida. Solo puedes ver el detalle de personajes que hayas agregado"
-    //   );
-    // }
-  }, [id, myCharacters]);
+  }, [id]);
   return available ? (
     <div
       className={`${styledDetail.card} ${

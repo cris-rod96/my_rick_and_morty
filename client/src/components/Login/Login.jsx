@@ -2,17 +2,15 @@ import { useState } from "react";
 import styledLogin from "./Login.module.css";
 import validations from "../../helpers/validations";
 import useLogin from "../../hooks/useLogin";
-import { useEffect } from "react";
-import { Toaster } from "sonner";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 export default function Login() {
-  const { login } = useLogin();
+  const { login } = useLogin(toast);
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [disabledButton, setDisabledButton] = useState(true);
+  const [, setDisabledButton] = useState(true);
   const handleChange = ({ target }) => {
     const { name, value } = target;
 
@@ -41,8 +39,13 @@ export default function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (Object.values(errors).length === 0) {
-      login(credentials, toast);
+    if (
+      Object.values(errors).length === 0 &&
+      Object.values(credentials).every((credential) => credential !== "")
+    ) {
+      login(credentials);
+    } else {
+      toast.error("Todos los campos son obligatorios");
     }
   };
 

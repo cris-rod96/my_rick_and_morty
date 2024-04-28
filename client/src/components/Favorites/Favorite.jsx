@@ -1,18 +1,46 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card";
 import Empty from "../Empty/Empty";
 import styledFavorites from "./Favorites.module.css";
 import { useEffect } from "react";
 import useFavorite from "../../hooks/useFavorite";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { utilStorage } from "../../utils";
+import { favoriteEndpoints } from "../../api/favorite.api";
+import { saveFavorites } from "../../redux/slices/favorite.slice";
+import { useOutletContext } from "react-router-dom";
+import { AxiosError } from "axios";
 
 export default function Favorite() {
-  const { myFavorites } = useSelector((state) => state.favorites);
-  const { filterByStatus, filterGender, orderFavorites } = useFavorite();
+  const { toast } = useOutletContext();
+  const { filteredFavorites, myFavorites } = useSelector(
+    (state) => state.favorites
+  );
+  const { filterByStatus, filterGender, orderFavorites, clearFilters } =
+    useFavorite();
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, [myFavorites]);
+  useEffect(() => {
+    const userSession = utilStorage.getDataStorage("user-session");
+    if (userSession && userSession.id) {
+      favoriteEndpoints
+        .getAllFavorites(userSession.id)
+        .then((res) => {
+          dispatch(saveFavorites(res.data));
+        })
+        .catch((err) => {
+          if (err instanceof AxiosError) {
+            toast.error(err.response.data.message);
+          } else {
+            toast.error("Error desconocido.");
+          }
+        });
+    }
+  }, [filteredFavorites]);
   return (
     <>
-      {myFavorites.length > 0 ? (
+      {filteredFavorites && filteredFavorites.length > 0 ? (
         <div className={styledFavorites.containerFavorites}>
           <div className={styledFavorites.containerFilters}>
             <div className={styledFavorites.containerSelect}>
@@ -24,8 +52,8 @@ export default function Favorite() {
                 className={styledFavorites.selectFilter}
                 onChange={orderFavorites}
               >
-                <option value="A">Ascendente</option>
-                <option value="D">Descendente</option>
+                <option value="ASC">Ascendente</option>
+                <option value="DESC">Descendente</option>
               </select>
             </div>
 
@@ -61,10 +89,20 @@ export default function Favorite() {
                 <option value="unknown">Unknown</option>
               </select>
             </div>
+
+            <div className={styledFavorites.containerSelect}>
+              <button
+                type="button"
+                className={styledFavorites.btnClearFilter}
+                onClick={clearFilters}
+              >
+                Clear Filters
+              </button>
+            </div>
           </div>
 
           <div className={styledFavorites.containerCards}>
-            {myFavorites.map((fav) => {
+            {filteredFavorites.map((fav) => {
               return (
                 <Card
                   character={fav}
@@ -82,3 +120,6 @@ export default function Favorite() {
     </>
   );
 }
+Favorite.propTypes = {
+  markFavorite: PropTypes.func.isRequired,
+};

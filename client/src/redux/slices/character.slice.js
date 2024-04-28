@@ -3,6 +3,7 @@ import { utilStorage } from "../../utils";
 
 const initialState = {
   myCharacters: [],
+  filteredCharacters: [],
 };
 
 export const characterSlice = createSlice({
@@ -11,6 +12,7 @@ export const characterSlice = createSlice({
   reducers: {
     saveCharacters: (state, action) => {
       state.myCharacters = action.payload;
+      state.filteredCharacters = action.payload;
     },
     addCharacter: (state, action) => {
       const { payload } = action;
@@ -20,11 +22,11 @@ export const characterSlice = createSlice({
 
     removeCharacter: (state, action) => {
       const id = action.payload;
-      console.log(id);
       const newCharacters = state.myCharacters.filter(
         (character) => character.id !== id
       );
       state.myCharacters = [...newCharacters];
+
       utilStorage.saveDataStorage("characters_added", newCharacters);
     },
   },

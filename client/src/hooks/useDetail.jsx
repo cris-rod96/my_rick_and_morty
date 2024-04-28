@@ -3,7 +3,7 @@ import { characterEndpoints } from "../api/character.api";
 import { useState } from "react";
 import { AxiosError } from "axios";
 
-const useDetail = () => {
+const useDetail = (toast) => {
   const [character, setCharacter] = useState({});
   const [available, setAvailable] = useState(false);
   const { myCharacters } = useSelector((state) => state.characters);
@@ -14,14 +14,13 @@ const useDetail = () => {
     );
   };
 
-  const getCharacterByID = (id, toast) => {
+  const getCharacterByID = (id) => {
     if (isCharacterAdded(id)) {
       characterEndpoints
         .getByID(id)
         .then((res) => {
           setCharacter(res.data);
           setAvailable(true);
-          toast.success("hi");
         })
         .catch((err) => {
           if (err instanceof AxiosError) {

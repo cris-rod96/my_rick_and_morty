@@ -1,69 +1,20 @@
 import { NavLink } from "react-router-dom";
 import styledCard from "./Card.module.css";
 import { utilStorage } from "../../utils";
-import { favoriteEndpoints } from "../../api/favorite.api";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  removeFavorites,
-  addFavorite,
-} from "../../redux/slices/favorite.slice";
-
 import PropTypes from "prop-types";
-import { Toaster, toast } from "sonner";
+import { useOutletContext } from "react-router-dom";
+import useCard from "../../hooks/useCard";
 export default function Card(props) {
-  const { character, isFav, handlerDelete, parent } = props;
-  const { myFavorites } = useSelector((state) => state.favorites);
+  const { toast } = useOutletContext();
+  const { markFavorite, deleteCharacter } = useCard(toast);
+  const { character, isFav, parent } = props;
   const userSession = utilStorage.getDataStorage("user-session");
-  const dispatch = useDispatch();
-  const markFavorite = () => {
-    if (userSession) {
-      const { id } = userSession;
-      if (isFav) {
-        favoriteEndpoints
-          .removeFavorite(id, character.id)
-          .then(() => {
-            dispatch(removeFavorites(character.id));
-            toast.success("Personaje eliminado de la lista de favoritos");
-          })
-          .catch((err) => {
-            toast.error(err.response.data.message);
-          });
-      } else {
-        favoriteEndpoints
-          .saveFavorite(id, character.id)
-          .then(() => {
-            dispatch(addFavorite(character));
-            toast.success("Personaje agregado a la lista de favoritos");
-          })
-          .catch((err) => {
-            toast.error(err.response.data.message);
-          });
-      }
-    }
-  };
 
-  const deleteCharacter = async () => {
-    let message = "Personaje eliminado de los agregados ";
-    handlerDelete(character.id);
-    const foundFavorite = myFavorites.find(
-      (favorite) => favorite.id === Number(character.id)
-    );
-    if (foundFavorite) {
-      favoriteEndpoints
-        .removeFavorite(userSession.id, character.id)
-        .then(() => {
-          dispatch(removeFavorites(character.id));
-          message += "y de los favoritos";
-          toast.success(message);
-          return;
-        })
-        .catch((err) => {
-          toast.error(err.response.data.message);
-          return;
-        });
-    } else {
-      toast.success(message);
-    }
+  const handlerFavorites = () => {
+    markFavorite(userSession.id, character, isFav);
+  };
+  const handlerDelete = () => {
+    deleteCharacter(character, userSession.id);
   };
 
   return (
@@ -72,10 +23,9 @@ export default function Card(props) {
         character.status === "Dead" ? styledCard.cardDead : styledCard.cardAlive
       }`}
     >
-      <Toaster richColors />
       <div className={styledCard.cardHeader}>
         {parent === "Home" ? (
-          <button className={styledCard.btnDelete} onClick={deleteCharacter}>
+          <button className={styledCard.btnDelete} onClick={handlerDelete}>
             X
           </button>
         ) : null}
@@ -104,9 +54,9 @@ export default function Card(props) {
       >
         <p className={styledCard.characterStatus}>{character.status}</p>
         {isFav ? (
-          <p onClick={markFavorite}>❤️</p>
+          <p onClick={handlerFavorites}>❤️</p>
         ) : (
-          <p onClick={markFavorite}>🤍</p>
+          <p onClick={handlerFavorites}>🤍</p>
         )}
       </div>
     </div>

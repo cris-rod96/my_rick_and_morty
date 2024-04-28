@@ -24,6 +24,7 @@ export default function Nav({ toast }) {
           onSearch={handleSearch}
           onSearchRandom={handleSearchRandom}
           logOut={logOut}
+          toast={toast}
         />
       </div>
     </div>

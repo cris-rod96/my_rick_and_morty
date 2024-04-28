@@ -19,6 +19,7 @@
   width: 100%;
   display: grid;
   gap: 10px;
+  position: relative;
 }
 
 .labelSelects {
@@ -49,4 +50,23 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
   margin-top: 20px;
+}
+
+.btnClearFilter {
+  height: 60px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #2e2e2c;
+  color: rgb(160, 153, 153);
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.btnClearFilter:hover {
+  background-color: #353534;
 }

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import styledSearch from "./Searchbar.module.css";
+import useLogin from "../../hooks/useLogin";
+import PropTypes from "prop-types";
 
-export default function Searchbar(props) {
-  const { onSearch, onSearchRandom, logOut } = props;
+export default function Searchbar({ onSearch, onSearchRandom, toast }) {
+  const { logOut } = useLogin();
   const [id, setID] = useState("");
 
   const handlerChange = ({ target }) => {
@@ -11,7 +13,7 @@ export default function Searchbar(props) {
   };
 
   const closeSession = () => {
-    confirm("¿Realmente deseas cerrar sesión?") ? logOut() : null;
+    confirm("¿Realmente deseas cerrar sesión?") ? logOut(toast) : null;
   };
   return (
     <div className={styledSearch.searchBar}>
@@ -45,3 +47,9 @@ export default function Searchbar(props) {
     </div>
   );
 }
+
+Searchbar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  onSearchRandom: PropTypes.func.isRequired,
+  toast: PropTypes.func.isRequired,
+};
