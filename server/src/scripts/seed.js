@@ -1,9 +1,11 @@
 import axios from "axios";
-import { Character } from "../database/conn.js";
+import { Character, User } from "../database/conn.js";
+import { PASSWORD_TEST, USER_TEST } from "../config/global.js";
 
 const loader = async () => {
   try {
     const charactersDB = await Character.count({});
+    const userDB = await User.count({});
     if (charactersDB === 0) {
       let url_base = "https://rickandmortyapi.com/api/character";
       do {
@@ -20,6 +22,13 @@ const loader = async () => {
         await Character.bulkCreate(characters);
         url_base = info.next;
       } while (url_base);
+    }
+
+    if (userDB === 0) {
+      await User.create({
+        email: USER_TEST,
+        password: PASSWORD_TEST,
+      });
     }
   } catch (error) {
     console.log(error);

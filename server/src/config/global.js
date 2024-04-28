@@ -1,7 +1,13 @@
 import { config } from "dotenv";
 config();
-const { URI_DATABASE_DEPLOY, HOST_PORT, URI_DATABASE_LOCAL, NODE_ENV } =
-  process.env;
+const {
+  URI_DATABASE_DEPLOY,
+  HOST_PORT,
+  URI_DATABASE_LOCAL,
+  NODE_ENV,
+  USER_TEST,
+  PASSWORD_TEST,
+} = process.env;
 
 const DB_URI = NODE_ENV
   ? {
@@ -24,4 +30,4 @@ const DB_URI = NODE_ENV
       },
     };
 
-export { DB_URI, HOST_PORT };
+export { DB_URI, HOST_PORT, USER_TEST, PASSWORD_TEST };
