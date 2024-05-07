@@ -4,7 +4,6 @@ import Empty from "../Empty/Empty";
 import styledHome from "./Home.module.css";
 import { useEffect } from "react";
 import { utilStorage } from "../../utils";
-import PropTypes from "prop-types";
 import { Toaster, toast } from "sonner";
 import useHome from "../../hooks/useHome";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +59,3 @@ export default function Home() {
     ""
   );
 }
-
-Home.propTypes = {
-  handlerDelete: PropTypes.func.isRequired,
-};

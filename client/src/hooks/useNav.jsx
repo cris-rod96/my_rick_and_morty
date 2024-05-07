@@ -15,6 +15,13 @@ const useNav = () => {
 
   const onSearch = (characterID, toast) => {
     if (characterID) {
+      characterID = Number(characterID);
+
+      if (isNaN(characterID)) {
+        toast.error("Solo se permiten números entre 1 y 826");
+        return;
+      }
+
       if (characterID < 1 || characterID > 826) {
         toast.error("Rango no permitido. Entre 1 y 826");
         return;
@@ -32,6 +39,8 @@ const useNav = () => {
         .catch((err) => {
           toast.error(err.response.data.message);
         });
+    } else {
+      toast.error("Necesitas ingresar un número entre 1 y 826");
     }
   };
   const onSearchRandom = (toast) => {

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { useOutletContext } from "react-router-dom";
 import useCard from "../../hooks/useCard";
 export default function Card(props) {
+  
   const { toast } = useOutletContext();
   const { markFavorite, deleteCharacter } = useCard(toast);
   const { character, isFav, parent } = props;
